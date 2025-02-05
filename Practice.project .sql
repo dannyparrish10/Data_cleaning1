@@ -78,12 +78,10 @@ FROM Retail_sales_data
 GROUP BY
 CASE WHEN age <= 25 THEN 'young'
 WHEN age BETWEEN 25 AND 45 THEN 'middle age'
-ELSE 'old' END ,payment_method
+ELSE 'old' END,payment_method
 ORDER BY age_category, count DESC;
 
 
-
-20:21:55	SELECT CASE WHEN age <= 25 THEN 'young' WHEN age BETWEEN 25 AND 45 THEN 'middle age' ELSE 'old' END AS age_category,(SELECT payment_method FROM Retail_sales_data GROUP BY payment_method),  COUNT(*) AS count, ROW_NUMBER() OVER (PARTITION BY payment_method ORDER BY COUNT(*) DESC) AS top  FROM Retail_sales_data GROUP BY AGE_Category	Error Code: 1055. Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'super market anaysis.Retail_sales_data.payment_method' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by	0.0012 sec
 
 
 
