@@ -1,0 +1,313 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b3fc64e0-29d1-4706-90d0-ff2a0bfd10e0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pip install scikit-learn\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1751dc5f-8a52-4800-9220-c5fbbe65e621",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pip install seaborn\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3d446257-210b-44d3-a2ee-e98d43192206",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd \n",
+    "import matplotlib.pyplot as plt \n",
+    "import seaborn as sns "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "02ce077e-3e06-461c-bd94-c264b9b8c25c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df= pd.read_csv(\"/Users/dannyparris/Documents/untitled folder/Ecommerce Customers\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fb3ddbd7-17bf-4314-9020-0885e6d8d83b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "40cb03ce-ca26-4346-8488-e4b5b54efa9a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ccdbf2c0-29a0-4cde-bf07-d7023fe54c65",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "697fc7f0-b950-4555-9065-996d7667282a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sns. jointplot(x=\"Time on Website\", y=\"Yearly Amount Spent\", data=df, alpha = 0.5 )"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d8de76fe-c7fe-429f-b159-7eefbabb8950",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sns. jointplot(x=\"Time on App\", y=\"Yearly Amount Spent\", data=df, alpha = 0.5 )"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "aff9ac74-a23c-43a1-8e93-87795c797021",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sns. pairplot(df, kind = 'scatter', plot_kws ={\"alpha\": 0.4})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "bb3f9e01-c6eb-400d-88c7-1177efe671b4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sns.lmplot( x= \"Length of Membership\", y= \"Yearly Amount Spent\", data =df,scatter_kws ={'alpha':0.3})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d61b416e-627f-4e79-93ab-2d79d7b7ff22",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.model_selection import train_test_split "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "905a1798-b917-47b0-8a0b-374e2bdb5a51",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = df[['Avg. Session Length',\"Time on App\", \"Time on Website\", \"Length of Membership\"]]\n",
+    "y = df[\"Yearly Amount Spent\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "194cec84-837a-4fbb-b8d4-88fd4080e9c4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x_train , x_test, y_train,y_test = train_test_split(x, y, test_size = 0.3, random_state = 42)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "52f4e999-243d-4246-b18b-f9421998fd9d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# training model\n",
+    "from sklearn.linear_model import LinearRegression "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ebb81f27-39d0-4eb5-a0ab-7d66c5d35efc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "lm =LinearRegression()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9e07dc93-ca24-4a98-a8f2-cf572de59552",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "lm.fit (x_train,y_train)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3b69e3c9-d908-4a28-a3ce-a579c6f9ee7c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "lm.coef_"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6a9ec74e-ec85-4776-a75f-0fd5e373153d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "cdf= pd.DataFrame(lm.coef_, x.columns,columns = ['coef'])\n",
+    "print(cdf)                                "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f810db3e-4176-40e7-ba27-177214aa55e8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# predictions \n",
+    "predictions = lm.predict(x_test) "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "243544b2-3a51-4285-94cb-bdba67e47ccd",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "predictions"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b86789dd-5be7-440b-a0e3-352a301ec66a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sns.scatterplot (x =predictions,y=y_test)\n",
+    "plt.xlabel(\"predictions\")\n",
+    "plt.title(\"Evalution of our LM model\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "49e995ff-2479-4593-88e3-09b3e0050c65",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.metrics import mean_squared_error, mean_absolute_error\n",
+    "import math"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "bbecfb38-9272-4a68-840d-5716a075c385",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(\"mean_absolute_error: \", mean_absolute_error(y_test , predictions))\n",
+    "print(\"mean_squared_error: \", mean_squared_error(y_test , predictions))\n",
+    "print(\"RMSE: \", math.sqrt(mean_squared_error(y_test,predictions)))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e9c07f06-014a-45b7-800a-66c826241bc8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# residuals \n",
+    "residuals= y_test -predictions"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9f9332e7-fa3e-4dd8-8d7a-38bba912acdf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sns.displot(residuals, bins= 40, kde = True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0cabcb3c-648b-4d2c-8378-ea332a6065f1",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3ed6e358-bae7-411e-a4e6-a461d3963d98",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
